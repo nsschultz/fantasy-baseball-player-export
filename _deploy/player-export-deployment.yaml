@@ -1,0 +1,29 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: player-export
+  namespace: baseball
+  labels:
+    app: player-export
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: player-export
+  template:
+    metadata:
+      labels:
+        app: player-export
+    spec:
+      containers:
+      - name: player-export
+        image: nschultz/fantasy-baseball-player-export:{{version}}
+        ports:
+          - name: web
+            containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 5
