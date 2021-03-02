@@ -39,6 +39,7 @@ namespace FantasyBaseball.PlayerExportService
                     builder.WithOrigins("http://*.schultz.local", "http://localhost").SetIsOriginAllowedToAllowWildcardSubdomains()))
                 .AddSingleton(Configuration)
                 .AddSingleton<ICsvFileWriterService, CsvFileWriterService>()
+                .AddSingleton<IDataGetterService, DataGetterService>()
                 .AddSingleton<IHealthCheckService, HealthCheckService>()
                 .AddControllers();
     }
